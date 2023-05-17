@@ -1,28 +1,15 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Product } from './models/product';
-import { Pagination } from './models/pagination';
+import { ShopService } from './shop/shop.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   title = 'Skinet';
-  products : Product[] = [];
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private shopService: ShopService) {}
 
-  }
-
-  ngOnInit(): void {
-    this.httpClient.get<Pagination<Product[]>>('https://localhost:5001/api/product?pageSize=50').subscribe({
-      next: response => this.products = response.data,
-      error: error => console.log(error),
-      complete: () => {
-        console.log('Completed');
-      }
-    })
-  }
+  ngOnInit(): void {}
 }
