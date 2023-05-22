@@ -10,10 +10,12 @@ import { ShopComponent } from './shop/shop.component';
 import { ProductItemComponent } from './shop/product-item/product-item.component';
 import { SharedModule } from './shared/shared.module';
 import { PagingHeaderComponent } from './shared/paging-header/paging-header.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent, ShopComponent, ProductItemComponent],
+  declarations: [AppComponent],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

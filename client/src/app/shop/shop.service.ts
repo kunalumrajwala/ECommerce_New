@@ -38,4 +38,8 @@ export class ShopService {
   getType(): Observable<Type[]> {
     return this.httpClient.get<Type[]>(this.baseUrl + 'Product/types');
   }
+
+  getProduct(id: number) {
+    return this.httpClient.get<Product>(this.baseUrl + 'Product/' + id);
+  }
 }
