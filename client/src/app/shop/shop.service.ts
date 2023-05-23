@@ -11,7 +11,7 @@ import { shopParams } from '../shared/models/shopParams';
   providedIn: 'root',
 })
 export class ShopService {
-  baseUrl = 'https://localhost:5001/api/';
+  baseUrl = '';
   constructor(private httpClient: HttpClient) {}
 
   getProducts(shopParams: shopParams): Observable<Pagination<Product[]>> {
