@@ -6,12 +6,13 @@ import { Observable } from 'rxjs';
 import { Brand } from '../shared/models/brand';
 import { Type } from '../shared/models/types';
 import { shopParams } from '../shared/models/shopParams';
+import { enviornment } from 'src/enviornments/enviornment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShopService {
-  baseUrl = '';
+  baseUrl = enviornment.apiUrl;
   constructor(private httpClient: HttpClient) {}
 
   getProducts(shopParams: shopParams): Observable<Pagination<Product[]>> {

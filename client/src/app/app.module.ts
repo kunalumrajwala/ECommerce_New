@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,7 @@ import { SharedModule } from './shared/shared.module';
 import { PagingHeaderComponent } from './shared/paging-header/paging-header.component';
 import { CommonModule } from '@angular/common';
 import { ErrorInterceptor } from './core/interceptor/error.interceptor';
+import { LoadingInterceptor } from './core/interceptor/loading.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,10 +25,16 @@ import { ErrorInterceptor } from './core/interceptor/error.interceptor';
     CoreModule,
     SharedModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
       multi: true,
     },
   ],
