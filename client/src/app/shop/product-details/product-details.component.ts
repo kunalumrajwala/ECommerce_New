@@ -29,6 +29,8 @@ export class ProductDetailsComponent implements OnInit {
       productBrandId: 0,
       productTypeId: 0,
     };
+
+    this.bcService.set('@producDetails', ' ');
   }
 
   ngOnInit(): void {

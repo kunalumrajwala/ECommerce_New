@@ -1,4 +1,8 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+  NgModule,
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +17,7 @@ import { PagingHeaderComponent } from './shared/paging-header/paging-header.comp
 import { CommonModule } from '@angular/common';
 import { ErrorInterceptor } from './core/interceptor/error.interceptor';
 import { LoadingInterceptor } from './core/interceptor/loading.interceptor';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,8 +29,9 @@ import { LoadingInterceptor } from './core/interceptor/loading.interceptor';
     HttpClientModule,
     CoreModule,
     SharedModule,
+    CarouselModule.forRoot(),
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
