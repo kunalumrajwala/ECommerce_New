@@ -18,15 +18,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationExtension(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddSwaggerDocumentation();
 
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleWare>();
 
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
-// Configure the HTTP request pipeline.
-app.UseSwaggerUI();
-app.UseSwagger();
+app.UseSwaggerDocumentation();
 
 app.UseStaticFiles();
 

@@ -13,10 +13,7 @@ namespace API.Extensions
         public static IServiceCollection AddApplicationExtension(this IServiceCollection Services, IConfiguration config)
         {
             Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            Services.AddEndpointsApiExplorer();
-            Services.AddSwaggerGen();
-
+            
             Services.AddDbContext<StoreContext>(opt =>
             {
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
@@ -60,6 +57,8 @@ namespace API.Extensions
             
                 });
             });
+
+            //Services.AddSwaggerDocumentation();
 
             return Services;
         }
