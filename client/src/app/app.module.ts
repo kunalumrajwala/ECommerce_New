@@ -10,14 +10,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
-import { ShopComponent } from './shop/shop.component';
-import { ProductItemComponent } from './shop/product-item/product-item.component';
 import { SharedModule } from './shared/shared.module';
-import { PagingHeaderComponent } from './shared/paging-header/paging-header.component';
 import { CommonModule } from '@angular/common';
 import { ErrorInterceptor } from './core/interceptor/error.interceptor';
 import { LoadingInterceptor } from './core/interceptor/loading.interceptor';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +27,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     HttpClientModule,
     CoreModule,
     SharedModule,
+    HomeModule,
     CarouselModule.forRoot(),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
