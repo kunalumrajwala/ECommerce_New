@@ -4,20 +4,25 @@ import { enviornment } from 'src/enviornments/enviornment';
 import { Basket, BasketItem, BasketTotal } from '../shared/models/basket';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../shared/models/product';
+import { DeliveryMethod } from '../shared/models/deliveryMethod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BasketService {
   baseUrl = enviornment.apiUrl;
-
   private basketSource = new BehaviorSubject<Basket | null>(null);
   basketSource$ = this.basketSource.asObservable();
-
   private basketTotalSource = new BehaviorSubject<BasketTotal | null>(null);
   basketTotalSource$ = this.basketTotalSource.asObservable();
+  shipping = 0;
 
   constructor(private http: HttpClient) {}
+
+  setShippingPrice(deliveryMethod: DeliveryMethod) {
+    this.shipping = deliveryMethod.price;
+    this.calculateTotal();
+  }
 
   getBasket(id: string) {
     return this.http.get<Basket>(this.baseUrl + 'basket?id=' + id).subscribe({
@@ -67,10 +72,14 @@ export class BasketService {
   deleteBasket(basket: Basket) {
     return this.http.delete(this.baseUrl + 'basket?id=' + basket.id).subscribe({
       next: () => {
-        this.basketSource.next(null), this.basketTotalSource.next(null);
-        localStorage.removeItem('basket_id');
+        this.deleteLocalBasket();
       },
     });
+  }
+
+  deleteLocalBasket() {
+    this.basketSource.next(null), this.basketTotalSource.next(null);
+    localStorage.removeItem('basket_id');
   }
 
   private addUpdateItem(
@@ -111,10 +120,9 @@ export class BasketService {
   private calculateTotal() {
     const basket = this.getCurrentBasketValue();
     if (!basket) return;
-    const shipping = 0;
     const subtotal = basket.items.reduce((a, b) => b.price * b.quantity + a, 0);
-    const total = subtotal + shipping;
-    this.basketTotalSource.next({ shipping, total, subtotal });
+    const total = subtotal + this.shipping;
+    this.basketTotalSource.next({ shipping: this.shipping, total, subtotal });
   }
 
   private isProduct(item: Product | BasketItem): item is Product {
